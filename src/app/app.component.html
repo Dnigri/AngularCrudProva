@@ -1,0 +1,62 @@
+
+<div class="container">
+  <div class="card list-student">
+    <h5 class="card-header">Lista de alunos</h5>
+    <div class="card-body">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Telephone</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of students">
+              <td>{{student.Id}}</td>
+              <td>{{student.Name}}</td>
+              <td>{{student.Telephone}}</td>
+              <td>{{student.Email}}</td>
+              <td>
+                <button type="button" class="btn btn-warning btn-sm" (click)="editStudent(student)">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteStudent(student)">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="card add-student">
+      <h5 class="card-header">Adicionar/Atualizar aluno</h5>
+      <div class="card-body">
+          <form id="add-form" (ngSubmit)="f.form.valid && saveStudent(f)" #f="ngForm" novalidate>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" [(ngModel)]="student.Name" id="Name" name="Name" #Name="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && Name.invalid }" placeholder="Digite o Nome">
+                <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
+                    <div *ngIf="Name.errors.required">Nome é obrigatório</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Telephone">Telephone</label>
+                <input type="text" [(ngModel)]="student.Telephone" id="Telephone" name="Telephone" #Telephone="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && Telephone.invalid }" placeholder="Digite o telefone ">
+                <div *ngIf="f.submitted && Telephone.invalid" class="invalid-feedback">
+                    <div *ngIf="Telephone.errors.required">Telefone é obrigatório</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="text" [(ngModel)]="student.Email" id="Email" name="Email" #Email="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && Email.invalid }" placeholder="Digite o Email">
+                <div *ngIf="f.submitted && Email.invalid" class="invalid-feedback">
+                    <div *ngIf="Email.errors.required">Email é obrigatório</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-add-student" >Salvar</button>
+            <button type="reset" class="btn btn-secondary btn-add-student" (click)="cleanForm(f)">Cancelar</button>
+          </form>
+      </div>
+    </div>
+</div>
